@@ -120,7 +120,7 @@ export default {
   },
   computed: {
     youtubeLink() {
-      return `http://youtube.com/embed/${this.selectedVideo.id}`;
+      return `https://youtube.com/embed/${this.selectedVideo.id}`;
     },
     player() {
       return this.$refs.youtube.player;
