@@ -8,46 +8,45 @@
         ></font-awesome-icon>
         <input
           type="text"
-          class="text-3xl rounded-full text-center p-2 m-2"
+          class="text-3xl rounded-full shadow-lg text-center p-2 m-2"
           v-model="search"
         />
       </div>
       <button
-        class="text-xl rounded-full px-4 m-2 bg-purple-500 text-white"
+        class="text-xl rounded-full px-4 m-2 bg-purple-500 text-white shadow-lg"
         @click="sendSearch"
       >
         Search
+      </button>
+    </div>
+    <div class="flex justify-around m-4">
+      <button
+        @click="decrementVid"
+        class="bg-purple-500 flex justify-around w-1/3 shadow-lg rounded p-4 items-center text-white"
+      >
+        <font-awesome-icon icon="caret-left" size="3x"></font-awesome-icon>
+        {{ this.previousVideo.snippet.title }}
+      </button>
+      <button
+        @click="incrementVid"
+        class="bg-purple-500 flex justify-around w-1/3 shadow-lg rounded p-4 items-center text-white"
+      >
+        {{ this.nextVideo.snippet.title }}
+        <font-awesome-icon icon="caret-right" size="3x"></font-awesome-icon>
       </button>
     </div>
     <div
       class="flex justify-center items-center w-2/3"
       v-if="videos.length > 0"
     >
-      <button @click="decrementVid">
-        <font-awesome-icon
-          icon="caret-left"
-          size="3x"
-          class="m-2 text-purple-500"
-        ></font-awesome-icon>
-      </button>
       <youtube
         :video-id="selectedVideo.id"
         ref="youtube"
         :player-vars="playerVars"
         @ready="videoReady"
+        class="shadow-lg"
       ></youtube>
-      <button @click="incrementVid">
-        <font-awesome-icon
-          icon="caret-right"
-          size="3x"
-          class="m-2 text-purple-500"
-        ></font-awesome-icon>
-      </button>
     </div>
-    <p class="text-xl md:text-3xl text-center">
-      YouTube Viewer, a quick way to search for videos without all the
-      distractions
-    </p>
   </div>
 </template>
 
@@ -105,6 +104,14 @@ export default {
   computed: {
     selectedVideo() {
       return this.videos[this.selectedIndex];
+    },
+    previousVideo() {
+      if (this.selectedIndex === 0) return this.videos[this.videos.length - 1];
+      else return this.videos[this.selectedIndex - 1];
+    },
+    nextVideo() {
+      if (this.selectedIndex === this.videos.length - 1) return this.videos[0];
+      else return this.videos[this.selectedIndex + 1];
     },
     player() {
       return this.$refs.youtube.player;
