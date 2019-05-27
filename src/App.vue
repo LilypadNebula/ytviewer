@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex flex-col md:flex-row justify-around p-4 h-screen items-center"
+    class="flex flex-col md:flex-row justify-around p-4 md:h-screen items-center"
   >
     <div class="flex flex-col justify-center mx-8 animateAll">
       <div class="flex items-center">
